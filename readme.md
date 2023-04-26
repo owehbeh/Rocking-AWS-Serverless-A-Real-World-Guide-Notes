@@ -394,3 +394,9 @@ Analyze and Debug Your Applications
 - Go to debugging and error handling
 - Enable active tracing
 - For extra debugging, you have to import the X-Ray SDK inside Lambda Function and specify in code where and when to log
+
+# 6️⃣ AWS CLI
+## Cloud9
+A cloud IDE for writing, running, and debugging code
+## Cloudshell
+A browser-based shell that gives you command-line access to your AWS resources in the selected AWS region. AWS CloudShell comes pre-installed with popular tools for resource management and creation.
