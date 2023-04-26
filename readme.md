@@ -308,3 +308,53 @@ Event-driven architecture
 - **Filter** - Define an event pattern to filter the events that are sent through the pipe
 - **Enrich** - Define an event pattern to filter the events that are sent through the pipe
 - **Target** - Send your event to an AWS service, an event bus, or an API destination
+
+
+# 4️⃣ Step Functions
+### An orchestration service that lets you connect your Lambda functions into serverless workflows, called state machines
+## 🟪 Why use it?
+- Lots of coding for flow control in Lambda
+- If the flow changed, Lambda needs to be changed an retested
+- Not easy to change the flow
+## 🟪 Solution
+- Step Function takes care of coordination and flow control
+- Create/Change flow in **Visual Console**
+- Lambdas become cleaner
+## 🟪 Key Components
+- States (Whole flow is called state machine)
+    - Elements inside state machine
+- Tasks
+    - All work inside state machine is done by _tasks_
+    - A task can be an activity or a Lambda function
+- Transitions
+    - Tells the State what to do next or where to begin
+```JSON
+"HelloWorld":{
+    "Type":"Task",
+    "Resource":"arn:aws:lambda..............",
+    "Next":"AfterHelloWorldState",
+    "Comment":"Run the HelloWorld Lambda Function"
+}
+```
+## 🟪 Workflow Types
+### Once selected for a State Machine, it cannot be changed
+- **Standard**
+    - Long running
+    - Slightly higher latency workflows
+    - Cheaper
+- **Express**
+    - High-volume
+    - Low latency
+    - Lower duration (Express!) workflow
+## 🟪 Nested Workflows Tricky Note
+- Default behavior is the Workflow1 will not wait for Workflow2 response to proceed
+- To achieve Synchronous flow you have to call the Workflow2 synchronously using the "`.sync`" expression in the "`Resource`" e.g.
+```JSON
+"HelloWorld":{
+    "Type":"Task",
+    "Resource":"arn:aws:states:::states:startExecution.sync",
+}
+```
+### Wait For Callback, similar to the callback pattern, allows for a Token to be sent back to Step Function and won't proceed until then. 
+- Can run for a year
+- Can specify using **HeartBeatSeconds**
