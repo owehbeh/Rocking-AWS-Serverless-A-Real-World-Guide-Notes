@@ -358,3 +358,39 @@ Event-driven architecture
 ### Wait For Callback, similar to the callback pattern, allows for a Token to be sent back to Step Function and won't proceed until then. 
 - Can run for a year
 - Can specify using **HeartBeatSeconds**
+
+# 5️⃣ Serverless Loggin & Monitoring
+## 🟫 Lambda
+### Cloudwatch is integrated by default
+- Cloudwatch logs
+- X-Ray traces
+
+## 🟫 API Gateway
+### Can be enabled to a specific stage
+
+## 🟫 CloudTrail vs CloudWatch
+ CloudTrail | CloudWatch
+----------|---------
+ **Infrastructure Logging** | **Application Logging** 
+ Creation/Deletion of S3 bucket | API request/response payload 
+ Creation/Deletion of VPC | Logging from Lambda code
+ Creation/Deletion of Security Group | Logs for execution of API
+ - CloudTrail logs can be sent to CloudWatch logs
+ - All the logs can be fed to an analytic system for actionable insights
+
+## 🟫 CloudWatch Log Insights
+- Fully managed log query tool
+- Queries massive amount of logs in seconds
+- Produces visualizatons
+- Lots of pre-built queries 
+
+## 🟫 X-Ray
+Analyze and Debug Your Applications
+### API Gateway
+- Have to enable for a specific stage
+- Under Logs/Tracing
+- Enable X-Ray Tracing
+### Lambda
+- Go to debugging and error handling
+- Enable active tracing
+- For extra debugging, you have to import the X-Ray SDK inside Lambda Function and specify in code where and when to log
