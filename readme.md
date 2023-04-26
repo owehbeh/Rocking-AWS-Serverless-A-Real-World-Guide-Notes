@@ -1,11 +1,9 @@
 # 1️⃣ Getting Started
-
 ## 🟨Serverless Checklist
 - No servers to provision or manage
 - Automatically scales with usage
 - Never pay for idle
 - Availability and fault tolerance built-in
-
 ## 🟨IAM - Identity and Access Management
 ### Group
 - A group of **IAM Users**
@@ -17,7 +15,6 @@
 - An entity to represent a person or application and interact with **AWS**
 ### Role 
 - An **AWS** identity with permission **Policies**
-
 ## 🟨AWS Serverless Services
 - Compute
     - AWS Lambda
@@ -33,7 +30,6 @@
     - AWS Glue
     - Amazon SNS
     - AWS AppSync
-
 ## 🟨Quiz 1
 - Using **Lambda Alias** you can **split traffic** between different Lambda versions
 - Lambda is **not the only** serverless service in **AWS**
@@ -44,17 +40,14 @@
 - Lambda uses **CloudWatch** to monitor **Metrics** and **Logs**
 
 # 2️⃣ AWS API Gateway
-
 ## 🟥What is an API?
 A set of clearly defined method of **communication** between various components
-
 ## 🟥What is an API Gateway
 An API management tool that serves as a single point of entry into a system, sitting between the application user and a collection of backend services
 - Create, configure, and host an API
 - Handles authentication & authorization
 - Handles tracing, caching, and throttling
 - \+ much more...
-
 ## 🟥Components
 - Resources
     - Methods
@@ -67,14 +60,11 @@ An API management tool that serves as a single point of entry into a system, sit
     - Meter API usage
     - Enforce a throttling and quota limit on each API key
 - API Keys
-
 ## 🟥AWS Cross Account Call
 - Must specify the **ARN** of the **Lambda function** in **account b**
 - Must add a policy to allow the **API Gateway ARN** in **account a** 
-
 ## 🟥Lambda Versioning
 Publishing a version increments the number of the latest version and you can access the latest version by `$LATEST`
-
 ## 🟥Lambda Alias
 - Can point to more than one version
 - Can divert percentage of the traffic to different versions - ex: 60% of traffic to v1 and 40% to v2
@@ -86,11 +76,9 @@ Publishing a version increments the number of the latest version and you can acc
 - From the API Gateway **Stages**, you can set the **Stage Variables** 
 ### _Why use the Stage Variables instead of hardcoding the Alias name?_
 - Because this way, each deployment **Stage** can point to a different **Alias**
-
 ## 🟥Canary
 **API Gateway** has this feature out of the box.
 It aims to reduce the risk of interoducing a new software version to production by slowly rolling out changes.
-
 ## 🟥Endpoint Types
 - Edge Optimized
     - Reduce client latency from **anywhere** on the internet
@@ -99,13 +87,11 @@ It aims to reduce the risk of interoducing a new software version to production 
     - Deployed to the current **selected region**
 - Private
     - Expose APIs only inside **VPC**
-
 ## 🟥Caching
 - Caching can be enabled for better performance and cost savings
 - Cache can be configured at the stage or method level
 - Cache can be based on query string, headers or both
 - Cache can be invalidated manually or automatically based on a time-to-live (TTL) value
-
 ## 🟥API Types
 - REST - works with
     - Lambda
@@ -120,7 +106,6 @@ It aims to reduce the risk of interoducing a new software version to production 
     - AWS Services
 
 # 3️⃣ Lambda Advanced Concepts
-
 ## 🟦 Scaling
 ### Provisioned Concurrency
 - Pre-initialized execution environments
@@ -133,7 +118,6 @@ You can request a concurrency limit increase for the Lambda functions
 - Select **AWS Lambda**
 - Select **Concurrent executions**
 - Click on **Requrest quota increase**
-
 ## 🟦 External Dependencies
 ### Use AWS Toolkit on VSCode to install external dependencies
 1. Download **AWS Toolkit**
@@ -149,7 +133,6 @@ You can request a concurrency limit increase for the Lambda functions
 - Same steps to follow
 - No need to install any extensions/login
 - Code in the cloud inside your browser
-
 ## 🟦 Lambda Container Image Support
 - AWS provides base images
 - Runtime interface client manages interaction between Lambda service and function code
@@ -168,7 +151,6 @@ You can request a concurrency limit increase for the Lambda functions
     - Run npm install
     - `CMD["app.lambdaHandler"]` is a required command and won't work out of the box if you use a custom container image not provided by AWS. Instead you will have to create a [Lambda compatible container image](https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-create-from-alt)
 3. Push the docker image to ECR repository
-
 ## 🟦 Lambda Layers
 ### What is it?
 - Allows you to share code
@@ -185,7 +167,6 @@ You can request a concurrency limit increase for the Lambda functions
 ### Limits
 - 250MB total size limit (total layers unzipped)
 - Up to 5 layers/function
-
 ## 🟦 Lambda EFS Integration
 - Pay for what you use
 - Shared accross concurrent executions of Lambda functions
@@ -209,7 +190,6 @@ You can request a concurrency limit increase for the Lambda functions
     - Select the created EFS instance
 - To access the **shared EFS** from **Cloud9**
     - Attach the same security group on the EC2 that is on the EFC and Lambda Function
-
 ## 🟦 RDS Proxy
 ### What is it?
 - Sits **between** Lambda and RDS
@@ -244,7 +224,6 @@ You can request a concurrency limit increase for the Lambda functions
 4. Proper VPC and Security Groups for Lambda to Proxy to RDS
 5. Peroper external dependencies for Lambda to access RDS MySQL
 6. Add env variables to allow access to RDS proxy endpoints from Lambda
-
 ## 🟦 SNS - Simple Notification Service
 ### What is it?
 - A Pub-Sub Messaging Service
@@ -272,7 +251,6 @@ You can request a concurrency limit increase for the Lambda functions
 ### SNS Message Filtering
 - When adding a subscriber to the SNS topic
 - Add a subscription filter policy
-
 ## 🟦 EventBridge - event bus
 ### What is an event bus?
 - A mechanis that allows different components to communicate with each other without knowing about each other
@@ -287,7 +265,6 @@ You can request a concurrency limit increase for the Lambda functions
 - **Default** event bus can only have **AWS** services as **source**
 - If another app like Zendek running on EC2 wants to send an event, you must use a custom event bus
 - Message **content based filtering** is only possible throught a **Custom Bus**
-
 ## 🟦 EventBridge | SQS | SNS 
 
 Metric | EventBridge | SQS | SNS
@@ -301,7 +278,6 @@ Metric | EventBridge | SQS | SNS
 **Persistence** | No formal persistence model<br>Retry up to 24 hours<br> Good practice is to create a **catch-all rule**, any message that doesn't satisfy any rule, we can investigate later on | Messages stored for 4 days<br> Min 60 sec max 14 days | No formal persistence model<br>Retry up to 23 days
 **Consumption** |  [Lambda/EC2/Step Functions/API Gateway/a lot more..]<br>Use event patterns set on rules to control which events are subscribed-to by different rules | [Lambda/AWS SDK]<br>Remember you can call message delete from within code or let the service handle it via successful Lambda function execution to avoid duplicate executions | [Lambda/SQS/email/mobile push/SMS/HTTP]<br>Use Message Filtering to control which messages go to which subscriber<br>Use Message delivery status to track failures
 **Retry/Failure Handling** |  Exponantial back off till 24 hours<br> Use with SQS for **DLQ(dead-later queue)** | Remain in queue until deleted<br>Cannot be seen by other consumers during **visibility timeout**<br> **DLQ(dead-later queue)** can be used | Exponential back off till 23 days min 2 times 1 second apart max38 times 20 minutes apart
-
 ## 🟦 EventBridge Pipes
 Event-driven architecture
 - **Source** - point-to-point integrations between event producers and consumers
@@ -364,10 +340,8 @@ Event-driven architecture
 ### Cloudwatch is integrated by default
 - Cloudwatch logs
 - X-Ray traces
-
 ## 🟫 API Gateway
 ### Can be enabled to a specific stage
-
 ## 🟫 CloudTrail vs CloudWatch
  CloudTrail | CloudWatch
 ----------|---------
@@ -377,13 +351,11 @@ Event-driven architecture
  Creation/Deletion of Security Group | Logs for execution of API
  - CloudTrail logs can be sent to CloudWatch logs
  - All the logs can be fed to an analytic system for actionable insights
-
 ## 🟫 CloudWatch Log Insights
 - Fully managed log query tool
 - Queries massive amount of logs in seconds
 - Produces visualizatons
 - Lots of pre-built queries 
-
 ## 🟫 X-Ray
 Analyze and Debug Your Applications
 ### API Gateway
@@ -396,12 +368,78 @@ Analyze and Debug Your Applications
 - For extra debugging, you have to import the X-Ray SDK inside Lambda Function and specify in code where and when to log
 
 # 6️⃣ AWS CLI
-## Cloud9
+## 🔲 Cloud9
 A cloud IDE for writing, running, and debugging code
-## Cloudshell
+## 🔲 Cloudshell
 A browser-based shell that gives you command-line access to your AWS resources in the selected AWS region. AWS CloudShell comes pre-installed with popular tools for resource management and creation.
 
 # 7️⃣ Lambda with Cloud9
-## Why use it?
+## 🔳 Why use it?
 - Access from anywhere, code in the cloud
 - Debug Lambda functions easily
+
+# 8️⃣ Security - API Gateway & Beyond
+## 🟩 API Gateway
+### Usage Plans
+- **Meter** API usage
+- Enforce a **throttling** and quota limit on each API key
+- Throttling limits define the maximum number of **requests per second** available to each key
+- Quota limits define the **number of requests** each API key is allowed to make **over a period**
+### API Keys
+- Attached to a plan in Usage Plans 
+- Enabled on the **Method execution** level under Resources
+### AWS IAM Authorization
+- Generate
+    - Access key ID
+    - Secret access key
+- Allows granular access to specific API methods, each IAM role has access to specific resources
+### Resource Policy
+- Specify whome to allow and what to allow them to do on the api
+```JSON
+{
+    "Version":"2012-10-17",
+    "Statement":[
+        "Effect":"Allow",// ALLOW
+        "Principal":"*",//WHAT?
+        "Action":"execute-api:Invoke",
+        "Resource":"arn:aws:execute-api:region:account-id:api-id/",
+        "Condition":{
+            "IpAddress":{
+                "aws:SourceIp":["10.20.30.40"]//WHO?
+            }
+        }
+    ]
+}
+```
+## 🟩 Cognito Users Pools
+1. Create **User Pool** - Pool ID
+2. Create **App Client** - Client ID
+3. Assign User Pool as **Authorizer** for API Gateway **Method**
+4. User **sign up** to the pool using Pool ID and Client ID
+5. User exchange credentials and **receives Token ID**
+6. User **calls API** Method with Token
+7. AWS **Validates** Token
+8. Backend **Lambda called**
+### 🟩 Cognito Federated Identity Pool
+1. Create Identity Pool
+2. Assign IAM Role for Identity Pool
+3. User logs in
+4. This also allows **granular access** since you can choose to require this IAM role on the API method level
+## 🟩 Cognito Hosted UI
+- Provides an OAuth 2.0 compliant authorization server
+- Includes default implementation of end user flows such as registration and authentication
+- Can customize user flows, such as the addition of Multi Factor Authentication (MFA), by changing user pool configuration
+## 🟩 AWS Secrets Manager
+- Store, rotate, monitor, and control access to secrets such as database credentials, API keys, and OAuth tokens
+- Enable secret rotation using built-in integration for MySQL, PostgreSQL, and Amazon Aurora on Amazon RDS
+- Provides sample code to consume with popular coding languages
+- Good security option in order not to manage environment key/value pairs, allowing for automated periodical rotation, in other words, more security
+## 🟩 Lambda Resource Policies
+### Why use it?
+- Prevent IAM cross Lambda access
+- By default, invoking Lambda function from API **in same AWS account** automatically changes the resource policy to allow the invocation
+### Solution
+- Remove permissions of resource (API Gateway Sid)
+- Through AWS CLI `aws lambda remove-permission --function-name <lambda-name-or-arn> --statement-id <statement-id-of-the-permission>`
+## 🟩 AWS Inspector - Lambda Integration
+### An automated vulnerability management service that continually scans workloads for software vulnerabilities and unintended network exposure
