@@ -400,3 +400,8 @@ Analyze and Debug Your Applications
 A cloud IDE for writing, running, and debugging code
 ## Cloudshell
 A browser-based shell that gives you command-line access to your AWS resources in the selected AWS region. AWS CloudShell comes pre-installed with popular tools for resource management and creation.
+
+# 7️⃣ Lambda with Cloud9
+## Why use it?
+- Access from anywhere, code in the cloud
+- Debug Lambda functions easily
