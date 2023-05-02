@@ -788,3 +788,16 @@ Resources:
 - Deploy
   - `sam deploy --template-file <Output YAML file> --stack-name <Stack name> --capabilities <IAM Role>`
 - Check CloudFormation for progress
+
+# 1️⃣3️⃣ Serverless Frameworks
+- AWS 
+  - AWS SAM
+  - AWS CodeStar
+  - AWS Amplify
+  - AWS Chalice
+- Third-Party
+  - Serverless Framework
+  - SPARTA
+  - Claudia.js
+  - Zappa
+  - APEX
