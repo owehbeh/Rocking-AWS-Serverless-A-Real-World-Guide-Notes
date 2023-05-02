@@ -745,3 +745,46 @@ Quickly develop, build, and deploy applications
   - Each step is visualized
 - Integrated with Jira and Github issues
 - Assign team member and roles from the service
+
+# 1️⃣2️⃣ AWS SAM (Serverless Application Model)
+## 🟢 What is it?
+AWS SAM is an open-source framework that provides developer tools for building and running serverless applications on AWS. The AWS SAM toolkit consists of two primary parts:
+1. AWS SAM template specification
+2. AWS SAM command line interface (AWS SAM CLI)
+## 🟢 Why use it?
+- Abstracts lines of CloudFormation
+- Build serverless applications faster
+- Less maintenance
+## 🟢 How it works?
+- Create YAML file
+```YAML
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Any description goes here
+Resources:
+  HelloWorldAPI:
+    Type: 'AWS::Serverless::Api'
+    Properties:
+      StageName: Dev
+      DefinitionUrl: ./APIfiles/swagger-lambda.yaml
+  samfunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: HelloWorld
+      Handler: index.handler
+      Runtime: nodejs17.x
+      CodeUri: ./folder/hellow_world.js
+      Description: vegeterian pizza 🍕
+      Events
+        GetApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref "HelloWorldAPI"
+            Path: /
+            Method: GET
+```
+- Build YAML file
+  - `sam package --template-file <YAML file> --s3-bucket <S3 Bucket> --output-template-file <Output YAML file>`
+- Deploy
+  - `sam deploy --template-file <Output YAML file> --stack-name <Stack name> --capabilities <IAM Role>`
+- Check CloudFormation for progress
