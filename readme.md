@@ -666,3 +666,82 @@ Default CMK is created by AWS, in case of a scenario where you need to specify w
 1. Create a Lambda Function that encrypt/decrypt data
 2. Assign a role to that function
 3. Pass the data to this Lambda Function before writing-encrypt/reading-decrypt 
+
+# 1️⃣1️⃣ DevOps for Serverless
+## 🔴 AWS CodeCommit
+### What is it?
+Create secure repositories for sharing code in the cloud
+
+## 🔴 AWS CodeBuild
+### What is it?
+- Build and test code with elastic scaling
+- Pay only for the build time
+### How it works?
+- Pull source code
+- Reads Buildspec File to know what to do
+  - Must be in root directory
+  - Must be named buildspec.yml
+  - Must be YAML formatted
+- Run the commands in Buildspec
+## 🔴 AWS CodeDeploy
+### What is it?
+Automate code deployments to maintain application uptime
+### Why use it?
+- Automatically scales
+- Rolling updates
+- Blue/Green Deployments
+- Stop & Roll Back
+- Switch Lambda Traffic
+  - All at once
+  - Canary
+### How it works?
+- AppSpec file
+  - What tasks to do?
+  - In what order?
+- Process
+  1. files
+      - source
+        - destination
+      - source
+        - destination
+  1. BeforeInstall
+      - location (scripts location)
+  2. AfterInstall
+      - location (scripts location)
+        - timeout
+  3. ApplicationStart
+      - location (scripts location)
+        - timeout
+  4. ValidateService
+      - location (scripts location)
+        - timeout
+        - runas (IAM user)
+## 🔴 AWS CodePipeline
+### What is it?
+Visualize and automate the different stages of software release process.
+### How it works?
+You can add stages as you wish, but mainly stages would look like:
+- Source
+  - CodeCommit
+  - GitHub
+  - BitBucket
+  - Etc..
+- Build
+  - Run commands to build
+  - Run commands to test
+  - Save build files on S3 buckets
+- Deploy
+  - AWS ElasticBeanstalk
+  - AWS EC2
+  - AWS CloudFormation
+  - AWS CodeDeploy
+## 🔴 AWS CodeStar
+### What is it?
+Quickly develop, build, and deploy applications 
+- 
+### Why use it?
+- Templates for Amazon EC2, AWS Lambda, and AWS Elastic Beanstalk
+- CodePipeline created
+  - Each step is visualized
+- Integrated with Jira and Github issues
+- Assign team member and roles from the service
