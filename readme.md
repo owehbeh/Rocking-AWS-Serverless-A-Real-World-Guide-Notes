@@ -801,3 +801,53 @@ Resources:
   - Claudia.js
   - Zappa
   - APEX
+
+# 1️⃣4️⃣ Serverless Vs Container
+
+Serverless | Container
+---------|---------
+ Run code without provisioning or managing servers | Unit of software that packages up code and all its dependencies
+ Easier to onboard | Complete control of environment
+ Focus on solving business problems | Rich ecosystem
+ Shines at event driven architectures | Faster migration to cloud with other softwares
+ Suited when traffic is unpredictable | Suited when traffic is predictable
+ Automatically scales with traffic | Scales horizontally spinning a new EC2 for example while only 50% of this EC2 is utilized so you pay for 50% idle
+Cheaper when traffic is unpredictable | Cheaper when traffic is predictable
+
+## 🟠 AWS Fargate
+### What is it?
+- Serverless version of Container
+### Why use it?
+- No need to create a cluster or determeine EC2 size
+- Scales on-demand
+- Pay for what you use
+
+## 🟠 ECS vs EKS vs Fargate
+### What is a container orchestrator?
+A utility that is designed to easily manage complex containerization deployments across multiple container hosts and locations from one central location
+### Why use it?
+Removes the burden of
+- Deployment of Containers
+- Redundancy and availability of Containers
+- Sacling up or down of Containers
+- Load balancing
+- Health monitoring
+- Service discovery
+- And more...
+### Container Orchestrators
+- Docker Swarm
+- Apacke Mesos
+- Cattle
+- Nomad
+- Empire
+- **AWS ECS**
+- Kubernetes
+  - **AWS EKS**
+- **AWS Fargate**
+
+
+ECS | EKS | Fargate
+---------|----------|---------
+ Container Orchestration  by AWS | Managed Kubernetes (Open Source) platform by AWS | Containers on-demand
+ Require creating cluster | Require creating cluster | No cluster required
+ Control Plane 0$ | Control Plane 144$ | Pay for tasks based on CPU and Memory
