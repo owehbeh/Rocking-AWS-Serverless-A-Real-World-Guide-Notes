@@ -851,3 +851,162 @@ ECS | EKS | Fargate
  Container Orchestration  by AWS | Managed Kubernetes (Open Source) platform by AWS | Containers on-demand
  Require creating cluster | Require creating cluster | No cluster required
  Control Plane 0$ | Control Plane 144$ | Pay for tasks based on CPU and Memory
+
+# 1️⃣5️⃣ Serverless Architectures & Advanced Optimization Techniques
+## 🟣 Optimizing Lambda 
+- Use pre-handler logic strategically
+  - Scopes
+    - Global Scope:
+      - Cold Start: Executed on first execution
+      - Warm Start: Does not executes
+    - Lambda Handler: Re-runs on each execution
+  - Example
+    - Move database connections to global scope
+- Concise function logic
+  - Minimize dependencies
+  - Import required parts of packages
+    - `from http import request` 
+  - Use Lambda Layers for duplicated logic
+- Lazy load libraries
+  - Under certain condition inside the Lambda Handler `import special-lib`
+- Share secrets based on application scope
+  - Single function: env vars
+  - Multi Functions / Shared Environments: Secrets Manager
+- Use Lambda Functions to **TRANSFORM** not ~~TRANSPORT~~
+  - ~~SNS > Lambda > S3~~ >>> SNS > S3
+- Push orchestration up to Step Functions
+  -  `Submit_Job` > `Get_Job_Status` > `Check_Job_Status` > `Wait_30_Seconds` > `Get_Job_Status` > `Check_Job_Status`
+  - **Don't** `Wait_30_Seconds` inside a Lambda Function
+- Read only what you need
+  - Properly indexed databases
+  - Use Views instead of compute
+  - Use Amazon S3 Select instead of reading a directory and manually looking for a file
+## 🟣 Optimizing Lambda Execution Environment
+### Use AWS X-Ray to trace
+- Cold Start Time
+- Lambda Initialization Time
+- Execution Time
+### Third-Party Tools
+- Datadog
+- Epsagon
+- NodeSource
+- IOPipe
+- Thundra
+### Memory Optimization
+Sometimes increased memory leads to significant performance increase and a slightly cost increase, totally worth it.
+- [Lambda Power Tuning](https://github.com/alexcasalboni/aws-lambda-power-tuning): Uses AWS Step Functions to run multiple concurrent versions of a Lambda function at different memory allocations and measure the performance
+  - Lowest Costs
+  - Fastest Execution Times
+- CloudWatch Insights
+  - Lambda Queries > Determine the amount of overprovisioned memory
+- Do you need to put Lambda Function in an Amazon VPC?
+  - RDS in VPC: Yes
+  - Restrict outbound access to internet: Yes
+  - No need? Then don't
+- Lambda Execution Models
+  - Synchronous
+    1. Amazon API Gateway
+    2. GET|POST
+    3. AWS Lambda Function
+  - WebSocket
+    1. Amazon API Gateway
+    2. Bidirectional ⬆️⬇️
+    3. AWS Lambda Function
+  - Asynchronous
+    1. Amazon SNS|SQS
+    2. Amazon S3 (Events)
+    3. AWS Lambda Function
+  - Poll-based
+    1. Amazon Kinesis
+    2. Changes
+    3. AWS Lambda Service
+        - Function
+- Do you Sync everywhere?
+  - Seperate Sync/Async componenst
+    - GET Sync
+    - POST Async
+  - Sending data to another system
+    - Do you need to insert in realtime?
+    - Is near realtime okay?
+    - Do you need response/callback in same call?
+    - API vs topic/queue/stream
+- Do you need to expose Lambda to APIs?
+  - Only getting called from internal AWS services, then no
+### [AWS Well-Architected Framework](https://aws.amazon.com/architecture/well-architected/?wa-lens-whitepapers.sort-by=item.additionalFields.sortDate&wa-lens-whitepapers.sort-order=desc&wa-guidance-whitepapers.sort-by=item.additionalFields.sortDate&wa-guidance-whitepapers.sort-order=desc)
+- Operational excellence
+  - Running monitoring system
+  - Improving processes and procedures
+  - Automating changes
+  - Responding to events
+- Security
+  - How to encrypt data in-transit at-rest
+- Reliability
+  - Prevent/Recover from failure
+- Performance Efficiency
+  - Using the right resources and using them efficiently
+- Cost Optimization
+  - Avoid un-needed cost
+- Sustainability
+  - Minimizing the environmental impacts of running cloud workloads
+### General Design Principals
+  - Speedy, simple, singular
+  - Share nothing
+  - Orchestrate app with state machines
+  - Design for failures and duplicates
+  - Use events to trigger transactions
+### Design Components
+- Compute Layer
+  - Lambda
+  - API Gateway
+  - Step Functions
+- Data Layer
+  - DynamoDB
+  - Aurora Serverless
+  - S3
+- Messagig and Streaming Layer
+  - Kinesis
+  - SNS
+- User Management and Identity Layer
+  - Cognito
+- Systems Monitoring and Deployment
+  - CloudWatch
+  - X-Ray
+- Edge Layer
+  - CloudFront
+### Design Patterns
+- RESTful Microservices
+  1. Consumer
+  2. Amazon API Gateway
+  3. AWS Lambda
+  4. Amazon DynamoDB | Aurora Serverless
+- Stream Processing
+  1. Kinesis
+  2. AWS Lambda
+  3. DynamoDB
+- Periodic Job
+  1. Schedule - CloudWatch events
+  2. Trigger - AWS Lambda
+  3. External API
+  4. DynamoDB
+- Web Application
+  1. Web Client
+  2. Static Content
+      - Amazon CloudFront
+      - Amazon S3
+  3. User directory / authentication
+      - Amazon Cognito
+  4. Serverless Backend
+      - Amazon API Gateway
+      - AWS Lambda
+      - Amazon DynamoDB
+### When not to use Lambda
+- Compare cost with EC2. Price vaires based on
+  - Traffic
+  - Memory
+  - Execution time
+- Long Cold Starts
+  - ~~If Lambda is in VPC, Cold Starts attach ENI (Elastic Network Interface)~~
+    - Fixed by AWS!
+    - ENIs are now attached during function **creation** and **NOT** ~~execution~~ 
+- Super heavy computing exceeding Lambda Memory/Time limit
+    
