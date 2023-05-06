@@ -347,7 +347,7 @@ You can request a concurrency limit increase for the Lambda functions
 
 ### What is an event bus?
 
-- A mechanis that allows different components to communicate with each other without knowing about each other
+- A mechanism that allows different components to communicate with each other without knowing about each other
 
 ### What is EventBridge?
 
