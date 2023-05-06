@@ -1,3 +1,12 @@
+
+___
+<br>
+
+## Notes for the Udemy Course "**[Rocking AWS Serverless - A Real World Guide](https://www.udemy.com/share/102iuc3@wthdsVg4rvQxsZtcWEH2Rc7_jGiVTjG3vBs1s1-vBQX_7svVNiolfqHnCh8-VYbY/)**"
+<br>
+
+___
+
 # 1️⃣ Getting Started
 
 ## 🟨Serverless Checklist
@@ -737,8 +746,7 @@ You can add stages as you wish, but mainly stages would look like:
   - AWS CodeDeploy
 ## 🔴 AWS CodeStar
 ### What is it?
-Quickly develop, build, and deploy applications 
-- 
+Quickly develop, build, and deploy applications  
 ### Why use it?
 - Templates for Amazon EC2, AWS Lambda, and AWS Elastic Beanstalk
 - CodePipeline created
@@ -830,7 +838,7 @@ A utility that is designed to easily manage complex containerization deployments
 Removes the burden of
 - Deployment of Containers
 - Redundancy and availability of Containers
-- Sacling up or down of Containers
+- Scaling up or down of Containers
 - Load balancing
 - Health monitoring
 - Service discovery
@@ -964,7 +972,7 @@ Sometimes increased memory leads to significant performance increase and a sligh
   - DynamoDB
   - Aurora Serverless
   - S3
-- Messagig and Streaming Layer
+- Messaging and Streaming Layer
   - Kinesis
   - SNS
 - User Management and Identity Layer
